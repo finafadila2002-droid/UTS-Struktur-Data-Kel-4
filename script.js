@@ -1,3 +1,4 @@
+// file script.js
 const users = [
     {
         nim: "312510056",
