@@ -1,109 +1,71 @@
-// file script.js
+const form = document.getElementById("formMahasiswa");
 
-const users = [
-    {
-        nim: "312510056",
-        nama: "YUNIA"
-    },
+const tabelMahasiswa = document.getElementById("tabelMahasiswa");
+const tabelKelompok = document.getElementById("tabelKelompok");
 
-    {
-        nim: "312510097",
-        nama: "FINA FADILA"
-    },
+const hasilData = document.getElementById("hasilData");
 
-    {
-        nim: "312510496",
-        nama: "GHINA ILMAN SALSAEZAR"
-    },
+let nomor = 1;
 
-    {
-        nim: "312510118",
-        nama: "DJENETE KELOPATRA BENGGU DA COSTA"
-    }
+// Data anggota kelompok
+const anggotaKelompok = [
+    "YUNIA - 312510056",
+    "GHINA ILMAN SALSAEZAR - 312510496",
+    "DJENETE KELOPATRA BENGGU DA COSTA - 312510118",
+    "FINA FADILA - 312510097"
 ];
 
-// Mengambil elemen HTML
-const form = document.getElementById("formMahasiswa");
-const foto = document.getElementById("foto");
-const preview = document.getElementById("preview");
-const errorFoto = document.getElementById("errorFoto");
-const pesan = document.getElementById("pesan");
-
-// Menyimpan tampilan avatar awal
-const avatarAwal = preview.innerHTML;
-
-// Preview foto mahasiswa
-foto.addEventListener("change", function () {
-
-    const file = foto.files[0];
-
-    errorFoto.textContent = "";
-
-    if (!file) {
-        preview.innerHTML = avatarAwal;
-        return;
-    }
-
-    // Memeriksa format foto
-    const format = ["image/jpeg", "image/png", "image/webp"];
-
-    if (!format.includes(file.type)) {
-        errorFoto.textContent = "Format foto harus JPG, PNG, atau WEBP!";
-        foto.value = "";
-        preview.innerHTML = avatarAwal;
-        return;
-    }
-
-    // Memeriksa ukuran foto maksimal 2 MB
-    if (file.size > 2 * 1024 * 1024) {
-        errorFoto.textContent = "Ukuran foto maksimal 2 MB!";
-        foto.value = "";
-        preview.innerHTML = avatarAwal;
-        return;
-    }
-
-    // Menampilkan foto
-    const reader = new FileReader();
-
-    reader.onload = function (event) {
-        preview.innerHTML = `
-            <img src="${event.target.result}" alt="Foto Mahasiswa">
-        `;
-    };
-
-    reader.readAsDataURL(file);
-
-});
-
-// Tombol simpan
+// Ketika tombol simpan diklik
 form.addEventListener("submit", function (event) {
 
     event.preventDefault();
 
-    const nim = document.getElementById("nim").value.trim();
-    const nama = document.getElementById("nama").value.trim();
+    const nim = document.getElementById("nim").value;
+    const nama = document.getElementById("nama").value;
 
-    if (nim === "" || nama === "") {
-        pesan.textContent = "NIM dan Nama Lengkap wajib diisi!";
-        pesan.style.color = "red";
-        return;
-    }
+    // Menampilkan data mahasiswa
+    const baris = document.createElement("tr");
 
-    pesan.textContent = "Data mahasiswa berhasil disimpan!";
-    pesan.style.color = "green";
+    baris.innerHTML = `
+        <td>${nomor}</td>
+        <td>${nim}</td>
+        <td>${nama}</td>
+    `;
 
-});
+    tabelMahasiswa.appendChild(baris);
 
-// Tombol reset
-form.addEventListener("reset", function () {
+    // Menampilkan data kelompok
+    tabelKelompok.innerHTML = "";
 
-    setTimeout(function () {
+    anggotaKelompok.forEach(function (anggota, index) {
 
-        preview.innerHTML = avatarAwal;
+        const barisKelompok = document.createElement("tr");
 
-        errorFoto.textContent = "";
-        pesan.textContent = "";
+        const kolomNo = document.createElement("td");
+        kolomNo.textContent = index + 1;
 
-    }, 0);
+        const kolomNama = document.createElement("td");
+        kolomNama.textContent = anggota;
+
+        barisKelompok.appendChild(kolomNo);
+        barisKelompok.appendChild(kolomNama);
+
+        tabelKelompok.appendChild(barisKelompok);
+
+    });
+
+    // Menampilkan hasil
+    hasilData.style.display = "block";
+
+
+    // 2. RESET - TOMBOL RESET, DI LUAR, JANGAN PAKAI form.addEventListener("reset")
+    const btnReset = document.getElementById("btnReset"); // atau getElementById tombol Reset kamu
+    // atau document.querySelector('button[type="reset"]')
+
+    btnReset.addEventListener("click", function () {
+        form.reset();
+        // JANGAN pakai hasilData.style.display = "none" di sini
+        // kalo kamu mau tabel tetap tampil
+    });
 
 });
