@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 
 <head>
     <meta charset="UTF-8">
@@ -9,46 +9,65 @@
 </head>
 
 <body>
-    <div class="container">
-        <h2>Informasi Mahasiswa</h2>
-        <form id="formMahasiswa">
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="nim">NIM <span>*</span></label>
-                    <input type="text" id="nim" placeholder="Masukkan NIM" value="" required>
-                </div>
-                <div class="form-group">
-                    <label for="nama">Nama Lengkap <span>*</span></label>
-                    <input type="text" id="nama" placeholder="Masukkan Nama Lengkap" value="" required>
-                </div>
-            </div>
-            <div class="form-group foto-group">
-                <label>Foto Mahasiswa</label>
-                <div class="upload-area">
-                    <div class="avatar" id="preview">
-                        <span></span>
-                    </div>
-                    <div class="file-area">
-                        <input type="file" id="foto" accept=".jpg,.jpeg,.png,.webp">
-                        <small>
-                            Format JPG, PNG, atau WEBP.
-                            Maksimal 2 MB.
-                        </small>
-                        <p id="errorFoto"></p>
-                    </div>
-                </div>
-            </div>
-            <div class="button-group">
-                <button type="reset" class="btn-reset">
-                    Reset
-                </button>
 
-                <button type="submit" class="btn-simpan">
-                    Simpan
-                </button>
+    <div class="container">
+
+        <h2>▣ Informasi Mahasiswa</h2>
+
+        <form id="formMahasiswa">
+
+            <div class="form-row">
+
+                <div class="form-group">
+                    <label>NIM *</label>
+                    <input type="text" id="nim" placeholder="Masukkan NIM" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Nama Lengkap *</label>
+                    <input type="text" id="nama" placeholder="Masukkan Nama Lengkap" required>
+                </div>
+
             </div>
-            <p id="pesan"></p>
+
+            <button type="submit">Simpan Data</button>
+
+            <button type="button" id="btnReset">Reset</button>
+
         </form>
+
+        <!-- Hasil Data -->
+        <div id="hasilData" style="display: none;">
+
+            <h2>Data Mahasiswa</h2>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>NIM</th>
+                        <th>Nama Lengkap</th>
+                    </tr>
+                </thead>
+
+                <tbody id="tabelMahasiswa"></tbody>
+            </table>
+
+            <h2>Data Kelompok</h2>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Nama Anggota Kelompok</th>
+                    </tr>
+                </thead>
+
+                <tbody id="tabelKelompok"></tbody>
+            </table>
+
+        </div>
+
     </div>
 
     <script src="script.js"></script>
